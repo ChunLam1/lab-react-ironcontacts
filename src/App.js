@@ -25,6 +25,12 @@ function App() {
   })]
   }
 
+  const deleteContact = contactId => {
+    const filteredContact = contact.filter(contacts => {
+      return contacts._id !== contactId;
+    });
+    setContact(filteredContact);
+    };
 
   return (
     <div className="App">
@@ -45,17 +51,17 @@ function App() {
     </thead>
     {contact.map((info) => (
       <tbody>
-    <tr>
+    <tr key={info._id}>
       <td><img src={info.pictureUrl} alt={info.name}></img></td>
       <td>{info.name}</td>  
       <td>{info.popularity}</td>
       <td>{info.wonOscar === true ? "🏆" : ""}</td>
       <td>{info.wonEmmy === true ? "🏆" : ""}</td>
-      {/* <td><button onClick={() => info.id.delete()}>Delete</button></td> */}
+      <td><button onClick={() => deleteContact(info._id)}>Delete</button></td>
     </tr> 
     </tbody>
     ))}
-    
+
     </table>
     </div>
   );
